@@ -26,13 +26,20 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-        title: Image.asset('assets/images/egat_logo.png', height: 40,),
+        title: Image.asset(
+          'assets/images/egat_logo.png',
+          height: 40,
+        ),
         centerTitle: true,
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Image.asset(
+              'assets/images/1.jpg',
+              height: 400,
+            ),
             const AppHeader(
               title: 'test',
             ),
@@ -44,13 +51,17 @@ class _MyHomePageState extends State<MyHomePage> {
                   fontSize: 40),
             ),
             Text(
-              'You have pushed the button this many times:',
+              'CLICK +',
               style: TextStyle(
-                  backgroundColor: Theme.of(context).colorScheme.secondary),
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
+                  fontSize: 60),
             ),
             Text(
               '$_counter ${staff['address']} $site',
-              style: Theme.of(context).textTheme.headlineMedium,
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 60,
+                  fontStyle: FontStyle.italic),
             ),
           ],
         ),
