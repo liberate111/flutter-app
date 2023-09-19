@@ -1,76 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/widgets/app_header.dart';
+import 'package:flutter_app/screens/about_screen.dart';
+import 'package:get/get.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  var staff = {'address': 'BKK'};
-  var site = 'NBK0';
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-      site = 'SBK0';
-    });
-  }
-
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-        title: Image.asset(
-          'assets/images/egat_logo.png',
-          height: 40,
-        ),
+        title: Image.asset('assets/images/egat_logo.png',height: 50,),
         centerTitle: true,
+        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+        actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.developer_mode_sharp))
+        ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Image.asset(
-              'assets/images/1.jpg',
-              height: 400,
-            ),
-            const AppHeader(
-              title: 'test',
-            ),
-            Text(
-              'fufuu ',
-              style: TextStyle(
-                  backgroundColor:
-                      Theme.of(context).colorScheme.tertiaryContainer,
-                  fontSize: 40),
-            ),
-            Text(
-              'CLICK +',
-              style: TextStyle(
-                  backgroundColor: Theme.of(context).colorScheme.secondary,
-                  fontSize: 60),
-            ),
-            Text(
-              '$_counter ${staff['address']} $site',
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 60,
-                  fontStyle: FontStyle.italic),
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+      body:  Center(child: ElevatedButton(
+        child: const Text('about us'),
+        onPressed: () {
+          // Get.to(const AboutScreen());
+          Get.toNamed('/notfound');
+        },
+      ),),
     );
   }
 }
