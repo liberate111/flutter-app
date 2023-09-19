@@ -83,11 +83,14 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               'fufuu ',
               style: TextStyle(
-                  backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
+                  backgroundColor:
+                      Theme.of(context).colorScheme.tertiaryContainer,
                   fontSize: 40),
             ),
-            const Text(
+            Text(
               'You have pushed the button this many times:',
+              style: TextStyle(
+                  backgroundColor: Theme.of(context).colorScheme.secondary),
             ),
             Text(
               '$_counter ${staff['address']} $site',
