@@ -33,7 +33,9 @@ class MyApp extends StatelessWidget {
             displayLarge: TextStyle(
                 fontWeight: FontWeight.bold, color: Color(0xffffcc00)),
             titleLarge:
-                TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Roboto')),
+                TextStyle(fontWeight: FontWeight.bold, fontFamily: 'THSarabunNew'),
+            bodyMedium: TextStyle(fontSize: 20, height: 1.2)),
+          
         elevatedButtonTheme: ElevatedButtonThemeData(style: ElevatedButton.styleFrom(
           backgroundColor: const Color.fromARGB(255, 221, 167, 190),
           textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
