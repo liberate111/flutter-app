@@ -79,9 +79,9 @@ flutter:
     - family: THSarabunNew
       fonts:
         - asset: assets/fonts/THSarabunNew.ttf
-        - asset: fonts/THSarabunNew-Italic.ttf
+        - asset: assets/fonts/THSarabunNew-Italic.ttf
           style: italic
-        - asset: fonts/THSarabunNew-Bold.ttf
+        - asset: assets/fonts/THSarabunNew-Bold.ttf
           style: normal
           weight: 700
   #   - family: Trajan Pro
