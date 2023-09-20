@@ -17,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Image.asset(
           'assets/images/egat_logo.png',
-          height: 50,
+          height: 40,
         ),
         centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
@@ -32,45 +32,102 @@ class _HomeScreenState extends State<HomeScreen> {
       //     Get.to(const AboutScreen());
       //   },
       // ),),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Home',
-              style: TextStyle(
-                  color: Theme.of(context).colorScheme.error, fontSize: 40),
+      // body: Center(
+      //   child: Column(
+      //     mainAxisAlignment: MainAxisAlignment.center,
+      //     children: [
+      //       Text(
+      //         'Home',
+      //         style: TextStyle(
+      //             color: Theme.of(context).colorScheme.error, fontSize: 40),
+      //       ),
+      //       const Divider(),
+      //       ElevatedButton(
+      //         onPressed: () async {
+      //           var data = await Get.toNamed('/contact',
+      //               arguments: {'email': 'test@test.com', 'code': 200});
+      //           setState(() {
+      //             res = data;
+      //           });
+      //         },
+      //         style: ButtonStyle(
+      //             backgroundColor:
+      //                 MaterialStateProperty.all<Color>(Colors.redAccent),
+      //             foregroundColor:
+      //                 MaterialStateProperty.all<Color>(Colors.orange)),
+      //         child: const Text('contact'),
+      //       ),
+      //       ElevatedButton(
+      //         onPressed: () {
+      //           Get.toNamed('/about');
+      //         },
+      //         style: ButtonStyle(
+      //             backgroundColor:
+      //                 MaterialStateProperty.all<Color>(Colors.redAccent),
+      //             foregroundColor:
+      //                 MaterialStateProperty.all<Color>(Colors.orange)),
+      //         child: const Text('about'),
+      //       ),
+      //       Text('data: $res')
+      //     ],
+      //   ),
+      // ),
+      body: GridView.count(
+        primary: false,
+        padding: const EdgeInsets.all(20),
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+        crossAxisCount: 4,
+        children: <Widget>[
+          OutlinedButton(
+            onPressed: () {},
+            style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.yellow.shade400)),
+            child: const Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.person,
+                  size: 40,
+                ),
+                Text('Me')
+              ],
             ),
-            const Divider(),
-            ElevatedButton(
-              onPressed: () async {
-                var data = await Get.toNamed('/contact',
-                    arguments: {'email': 'test@test.com', 'code': 200});
-                setState(() {
-                  res = data;
-                });
-              },
-              style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.redAccent),
-                  foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.orange)),
-              child: const Text('contact'),
+          ),
+          OutlinedButton(
+            onPressed: () {},
+            style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.yellow.shade400)),
+            child: const Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.person,
+                  size: 40,
+                ),
+                Text('Me')
+              ],
             ),
-            ElevatedButton(
-              onPressed: () {
-                Get.toNamed('/about');
-              },
-              style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.redAccent),
-                  foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.orange)),
-              child: const Text('about'),
+          ),
+          OutlinedButton(
+            onPressed: () {},
+            style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.yellow.shade400)),
+            child: const Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.person,
+                  size: 40,
+                ),
+                Text('Me')
+              ],
             ),
-            Text('data: $res')
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
