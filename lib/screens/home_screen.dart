@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
         actions: [
-          IconButton(
+          IconButton.outlined(
               onPressed: () {}, icon: const Icon(Icons.developer_mode_sharp))
         ],
       ),
@@ -74,11 +74,69 @@ class _HomeScreenState extends State<HomeScreen> {
       // ),
       body: GridView.count(
         primary: false,
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(5),
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
-        crossAxisCount: 4,
+        crossAxisCount: 3,
         children: <Widget>[
+          FilledButton(
+            onPressed: () {},
+            style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.yellow.shade400)),
+            child: const Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.person,
+                  size: 40,
+                ),
+                Text('Me')
+              ],
+            ),
+          ),
+          FilledButton.tonal(
+            onPressed: () async {
+              var data = await Get.toNamed('/contact',
+                  arguments: {'email': 'test@test.com', 'code': 200});
+              setState(() {
+                res = data;
+              });
+            },
+            style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.yellow.shade400)),
+            child: const Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.telegram_sharp,
+                  size: 40,
+                ),
+                Text('Contact')
+              ],
+            ),
+          ),
+          OutlinedButton(
+            onPressed: () {
+              Get.toNamed('/about');
+            },
+            style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.redAccent),
+                foregroundColor:
+                    MaterialStateProperty.all<Color>(Colors.orange)),
+            child: const Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.face,
+                  size: 40,
+                ),
+                Text('About')
+              ],
+            ),
+          ),
           OutlinedButton(
             onPressed: () {},
             style: ButtonStyle(
