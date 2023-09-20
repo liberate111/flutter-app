@@ -80,7 +80,8 @@ class _AboutScreenState extends State<AboutScreen> {
                       // const Spacer(flex: 2,),
                       const Divider(),
                       const Text('Credit'),
-                      credit()
+                      credit(),
+                      booking()
                     ],
                   ))),
         ]),
@@ -92,7 +93,9 @@ class _AboutScreenState extends State<AboutScreen> {
 Container credit() {
   return Container(
     margin: const EdgeInsets.only(top: 25),
-    decoration: const BoxDecoration(color: Colors.greenAccent, borderRadius: BorderRadius.all(Radius.circular(20))),
+    decoration: const BoxDecoration(
+        color: Colors.greenAccent,
+        borderRadius: BorderRadius.all(Radius.circular(20))),
     padding: const EdgeInsets.all(5),
     child: const Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -123,4 +126,48 @@ Container credit() {
       ],
     ),
   );
+}
+
+Container booking() {
+  return Container(
+      height: 350,
+      margin: const EdgeInsets.only(top: 40),
+      decoration: const BoxDecoration(
+          color: Color.fromARGB(255, 236, 234, 234),
+          borderRadius: BorderRadius.all(Radius.circular(16))),
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        children: [
+          const Text(
+            'บ้านครินทร์ (Karin)',
+            style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+          ),
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Text(
+                  'จำนวนผู้เข้าพักสูงสุด: 4',
+                  style: TextStyle(color: Color.fromARGB(255, 11, 77, 131)),
+                ),
+              ),
+              Expanded(
+                  child: Row(
+                // mainAxisAlignment: MainAxisAlignment.end
+                children: [
+                  Text('Review 4.3',
+                      style:
+                          TextStyle(color: Color.fromARGB(255, 11, 77, 131))),
+                  Icon(
+                    Icons.star_rate_sharp,
+                    color: Color.fromRGBO(255, 230, 7, 1),
+                    size: 35,
+                  )
+                ],
+              ))
+            ],
+          ),
+          Expanded(child: Image.asset('assets/images/karin.jpg'))
+        ],
+      ));
 }
