@@ -6,6 +6,7 @@ import 'package:flutter_app/screens/notfound_screen.dart';
 import 'package:flutter_app/utils/colors/color_schemes.g.dart';
 import 'package:get/get.dart';
 
+import 'screens/detail_screen.dart';
 import 'screens/product_screen.dart';
 
 void main() {
@@ -68,6 +69,10 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: '/product',
             page: () => const ProductScreen(),
+            transition: Transition.circularReveal),
+        GetPage(
+            name: '/detail',
+            page: () => const DetailScreen(),
             transition: Transition.circularReveal),
       ],
     );

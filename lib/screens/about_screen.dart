@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/models/api_version/api_version.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' as convert;
 
 class AboutScreen extends StatefulWidget {
   const AboutScreen({super.key});
@@ -15,6 +18,27 @@ class _AboutScreenState extends State<AboutScreen> {
     'ความยาวสันเขื่อน 610 เมตร',
     'เขื่อนศรีนครินทร์เป็นเขื่อนประเภทหินถมแกนดินเหนียวที่สามารถกักเก็บน้ำได้มากที่สุดในประเทศไทย'
   ];
+  var version = '0.0.0';
+
+  void getData() async {
+    var url = Uri.parse('https://api.codingthailand.com/api/version');
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      var apiResponse = ApiVersion.fromJson(convert.json.decode(response.body));
+      setState(() {
+        version = apiResponse.data!.version!;
+      });
+    } else {
+      // print('Request failed with status: ${response.statusCode}.');
+    }
+  }
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +60,11 @@ class _AboutScreenState extends State<AboutScreen> {
                       const Text(
                         'SNR0',
                         style: TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        'Version $version',
+                        style: const TextStyle(
                             fontSize: 30, fontWeight: FontWeight.bold),
                       ),
                       const Divider(),

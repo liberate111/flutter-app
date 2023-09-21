@@ -28,7 +28,7 @@ class _MenuDrawerState extends State<MenuDrawer> {
               accountName: const Text('fufuu'),
               accountEmail: const Text('@egat.co.th'),
               onDetailsPressed: () {
-                Get.snackbar('app','snackbar');
+                Get.snackbar('app', 'snackbar');
                 Scaffold.of(context).closeDrawer();
               }),
           ListTile(
@@ -55,7 +55,7 @@ class _MenuDrawerState extends State<MenuDrawer> {
             title: const Text('Setting'),
             trailing: const Icon(Icons.arrow_right_rounded),
             onTap: () {
-              Get.snackbar('app','setting');
+              Get.snackbar('app', 'setting');
             },
           ),
           const Divider(),
