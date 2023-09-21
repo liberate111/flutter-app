@@ -14,13 +14,6 @@ class _MenuDrawerState extends State<MenuDrawer> {
     return Drawer(
       child: ListView(
         children: [
-          //  DrawerHeader(
-          //   decoration: BoxDecoration(color: Colors.brown),
-          //   child: const Text(
-          //     'Menu',
-          //     style: TextStyle(color: Colors.purpleAccent),
-          //   ),
-          // ),
           UserAccountsDrawerHeader(
               currentAccountPicture: const CircleAvatar(
                 backgroundImage: AssetImage('assets/images/3.PNG'),

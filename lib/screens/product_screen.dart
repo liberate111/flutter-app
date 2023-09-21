@@ -68,7 +68,7 @@ class _ProductScreenState extends State<ProductScreen> {
                             Theme.of(context).colorScheme.tertiaryContainer,
                       ),
                       onTap: () {
-                        Get.toNamed('detail');
+                        Get.toNamed(Uri.parse('detail?id=${snapshot.data?['data']?[index]['id']}&title=${snapshot.data?['data']?[index]['title']}').toString());
                       },
                     );
                 },

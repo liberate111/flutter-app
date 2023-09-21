@@ -6,7 +6,9 @@ import 'package:flutter_app/screens/notfound_screen.dart';
 import 'package:flutter_app/utils/colors/color_schemes.g.dart';
 import 'package:get/get.dart';
 
+import 'screens/camera_screen.dart';
 import 'screens/detail_screen.dart';
+import 'screens/map_screen.dart';
 import 'screens/product_screen.dart';
 
 void main() {
@@ -22,14 +24,6 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'app',
       theme: ThemeData(
-          // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          // colorScheme: ColorScheme.fromSeed(
-          //     seedColor: Colors.deepPurple,
-          //     background: Colors.lightBlue,
-          //     secondary: Colors.lightGreenAccent,
-          //     onBackground: Colors.deepOrange),
-          // brightness: Brightness.dark,
-          // colorSchemeSeed: const Color(0xFF154295),
           colorScheme: lightColorScheme,
           useMaterial3: true,
           textTheme: const TextTheme(
@@ -73,6 +67,14 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: '/detail',
             page: () => const DetailScreen(),
+            transition: Transition.circularReveal),
+        GetPage(
+            name: '/camera',
+            page: () => const CameraScreen(),
+            transition: Transition.circularReveal),
+        GetPage(
+            name: '/map',
+            page: () => const MapScreen(),
             transition: Transition.circularReveal),
       ],
     );
