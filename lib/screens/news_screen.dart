@@ -114,7 +114,7 @@ class _NewsScreenState extends State<NewsScreen> {
                 imageUrl: '${articles[index]['urlToImage']}',
                 progressIndicatorBuilder: (context, url, downloadProgress) =>
                     CircularProgressIndicator(value: downloadProgress.progress),
-                errorWidget: (context, url, error) => Icon(Icons.error),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
               Padding(
                 padding: const EdgeInsets.all(8),
