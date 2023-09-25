@@ -1,7 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/widgets/menu_drawer.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:intl/intl.dart';
+
+import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
 class NewsScreen extends StatefulWidget {
   const NewsScreen({super.key});
@@ -13,14 +17,47 @@ class NewsScreen extends StatefulWidget {
 class _NewsScreenState extends State<NewsScreen> {
   int page = 1;
   int pageSize = 5;
-  Future<Map<String, dynamic>>? newsFuture;
+  int total = 0;
+  List<dynamic> articles = [];
+  final RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
 
-  Future<Map<String, dynamic>> getData() async {
-    var response =
-        await http.get(Uri.parse('https://newsapi.org/v2/top-headlines?country=jp&apiKey=ab0d4aca4cea481e8157d31c68eb2b23&page=$page&pageSize=$pageSize'));
+  Future<void> _onRefresh() async {
+    await Future.delayed(const Duration(milliseconds: 1000));
+    setState(() {
+      articles.clear();
+      page = 1;
+    });
+    await getData();
+    _refreshController.refreshCompleted(resetFooterState: true);
+  }
+
+  Future<void> _onLoading() async {
+    await Future.delayed(const Duration(milliseconds: 1000));
+    // if failed,use loadFailed(),if no data return,use LoadNodata()
+    if (page < ((total / pageSize).ceil())) {
+      if (mounted) {
+        setState(() {
+          page = ++page;
+        });
+      }
+      await getData();
+      _refreshController.loadComplete();
+    } else {
+      _refreshController.loadNoData();
+      _refreshController.resetNoData();
+    }
+  }
+
+  Future<void> getData() async {
+    var response = await http.get(Uri.parse(
+        'https://newsapi.org/v2/top-headlines?country=jp&apiKey=ab0d4aca4cea481e8157d31c68eb2b23&page=$page&pageSize=$pageSize'));
     if (response.statusCode == 200) {
-      Map<String, dynamic> news = json.decode(response.body);
-      return news;
+      var resp = json.decode(response.body);
+      setState(() {
+        total = resp['totalResults'];
+        articles.addAll(resp['articles']);
+      });
     } else {
       throw Exception('Request failed with status: ${response.statusCode}');
     }
@@ -28,66 +65,92 @@ class _NewsScreenState extends State<NewsScreen> {
 
   @override
   void initState() {
-    newsFuture = getData();
+    getData();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: const MenuDrawer(),
-        appBar: AppBar(
-          title: const Text('news'),
-          backgroundColor: Theme.of(context).colorScheme.primary,
-        ),
-        body: FutureBuilder<Map<String, dynamic>>(
-          future: newsFuture,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return ListView.separated(
-                itemBuilder: (context, index) {
-                  return ListTile(
-                      leading: ConstrainedBox(
-                        constraints: const BoxConstraints(
-                            maxHeight: 160,
-                            minHeight: 80,
-                            maxWidth: 80,
-                            minWidth: 80),
-                        child: Image.network(
-                          '${snapshot.data?['articles']?[index]['urlToImage']}',
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      title: Text('${snapshot.data?['articles']?[index]['title']}'),
-                      subtitle:
-                          Text('${snapshot.data?['articles']?[index]['description']}'),
-                      trailing: Chip(
-                        label:
-                            Text('${snapshot.data?['articles']?[index]['source']['name']}'),
-                        padding: const EdgeInsets.all(2),
-                        backgroundColor:
-                            Theme.of(context).colorScheme.tertiaryContainer,
-                      ),
-                      onTap: () {
-                        // Get.toNamed(Uri.parse('detail?id=${snapshot.data?['data']?[index]['id']}&title=${snapshot.data?['data']?[index]['title']}').toString());
-                      },
-                    );
-                },
-                separatorBuilder: (context, index) => const Divider(),
-                itemCount: snapshot.data!['articles']!.length,
-              );
-            } else if (snapshot.hasError) {
-              return Center(
-                child: Text(
-                  '${snapshot.error}',
-                  style: const TextStyle(color: Colors.red),
-                ),
-              );
+      drawer: const MenuDrawer(),
+      appBar: AppBar(
+        title:
+            total > 0 ? Text('$total News') : const CircularProgressIndicator(),
+        backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+        foregroundColor: Colors.white,
+      ),
+      body: SmartRefresher(
+        enablePullDown: true,
+        enablePullUp: true,
+        header: const WaterDropHeader(),
+        footer: CustomFooter(
+          builder: (BuildContext context, LoadStatus? mode) {
+            Widget body;
+            if (mode == LoadStatus.idle) {
+              body = const Text("loading..");
+            } else if (mode == LoadStatus.loading) {
+              body = const CircularProgressIndicator();
+            } else if (mode == LoadStatus.failed) {
+              body = const Text("Load Failed! Click retry!");
+            } else if (mode == LoadStatus.canLoading) {
+              body = const Text("release to load more");
+            } else {
+              body = const Text("Data not found");
             }
-            return const Center(
-              child: CircularProgressIndicator(),
+            return SizedBox(
+              height: 55.0,
+              child: Center(child: body),
             );
           },
-        ));
+        ),
+        controller: _refreshController,
+        onRefresh: _onRefresh,
+        onLoading: _onLoading,
+        child: ListView.builder(
+          itemBuilder: (context, index) => Card(
+              child: Column(
+            children: [
+              CachedNetworkImage(
+                imageUrl: '${articles[index]['urlToImage']}',
+                progressIndicatorBuilder: (context, url, downloadProgress) =>
+                    CircularProgressIndicator(value: downloadProgress.progress),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8),
+                child: Text('${articles[index]['title']}'),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8),
+                child: Text('${articles[index]['description']}'),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                      flex: 2,
+                      child: Chip(
+                        avatar: const Icon(Icons.stadium),
+                        label: Text('${articles[index]['source']['name']}'),
+                      )),
+                  Expanded(
+                      flex: 1,
+                      child: Chip(
+                        avatar: const Icon(Icons.publish_outlined),
+                        label: Text(DateFormat.yMd().add_jm().format(
+                            DateTime.parse(articles[index]['publishedAt']))),
+                      ))
+                ],
+              ),
+            ],
+          )),
+          // itemExtent: 100.0,
+          itemCount: articles.length,
+        ),
+      ),
+    );
   }
 }
