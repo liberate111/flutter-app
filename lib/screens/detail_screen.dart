@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:url_launcher/url_launcher.dart';
+
 class DetailScreen extends StatefulWidget {
   const DetailScreen({super.key});
 
@@ -33,6 +35,13 @@ class _DetailScreenState extends State<DetailScreen> {
     super.initState();
   }
 
+  Future<void> _launchUrl(String url) async {
+    var urlParse = Uri.parse(url);
+    if (!await launchUrl(urlParse)) {
+      throw Exception('Could not launch $urlParse');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +64,10 @@ class _DetailScreenState extends State<DetailScreen> {
                       backgroundColor:
                           Theme.of(context).colorScheme.tertiaryContainer,
                     ),
-                    onTap: () {},
+                    onTap: () async {
+                      var url = 'https://youtube.com/watch?v=${snapshot.data?['data']?[index]['ch_url']}';
+                      await _launchUrl(url);
+                    },
                   );
                 },
                 separatorBuilder: (context, index) => const Divider(),

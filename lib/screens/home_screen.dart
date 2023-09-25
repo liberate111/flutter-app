@@ -66,14 +66,14 @@ class _HomeScreenState extends State<HomeScreen> {
             style: ButtonStyle(
                 backgroundColor:
                     MaterialStateProperty.all<Color>(Colors.yellow.shade400)),
-            child: const Column(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
+                const Icon(
                   Icons.telegram_sharp,
                   size: 40,
                 ),
-                Text('Contact')
+                  Text('Contact\n $res')
               ],
             ),
           ),
