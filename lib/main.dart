@@ -5,6 +5,7 @@ import 'package:flutter_app/screens/home_screen.dart';
 import 'package:flutter_app/screens/news_screen.dart';
 import 'package:flutter_app/screens/notfound_screen.dart';
 import 'package:flutter_app/screens/tab_screen.dart';
+import 'package:flutter_app/screens/web_screen.dart';
 import 'package:flutter_app/utils/colors/color_schemes.g.dart';
 import 'package:get/get.dart';
 
@@ -81,6 +82,10 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: '/news',
             page: () => const NewsScreen(),
+            transition: Transition.topLevel),
+        GetPage(
+            name: '/web',
+            page: () => const WebScreen(),
             transition: Transition.topLevel),
       ],
     );
