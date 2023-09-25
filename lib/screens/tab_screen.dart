@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/camera_screen.dart';
 import 'package:flutter_app/screens/home_screen.dart';
 import 'package:flutter_app/screens/map_screen.dart';
+import 'package:flutter_app/widgets/menu_drawer.dart';
 
 class TabScreen extends StatefulWidget {
   const TabScreen({super.key});
@@ -10,11 +11,13 @@ class TabScreen extends StatefulWidget {
   State<TabScreen> createState() => _TabScreenState();
 }
 
-class _TabScreenState extends State<TabScreen> with SingleTickerProviderStateMixin {
+class _TabScreenState extends State<TabScreen>
+    with SingleTickerProviderStateMixin {
   late TabController controller = TabController(length: 3, vsync: this);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        drawer: const MenuDrawer(),
         body: TabBarView(
           controller: controller,
           children: const [HomeScreen(), CameraScreen(), MapScreen()],
@@ -28,7 +31,8 @@ class _TabScreenState extends State<TabScreen> with SingleTickerProviderStateMix
                 height: 80,
                 icon: Icon(Icons.holiday_village),
                 text: 'Home',
-              ),Tab(
+              ),
+              Tab(
                 height: 80,
                 icon: Icon(Icons.camera_front),
                 text: 'Camera',

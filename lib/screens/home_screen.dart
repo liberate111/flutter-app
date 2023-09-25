@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/widgets/menu_drawer.dart';
 import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,8 +14,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const MenuDrawer(),
+      // drawer: const MenuDrawer(),
       appBar: AppBar(
+        leading: IconButton.outlined(
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+            icon: const Icon(Icons.menu)),
         title: Image.asset(
           'assets/images/egat_logo.png',
           height: 40,
