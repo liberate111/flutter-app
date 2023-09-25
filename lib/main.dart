@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/about_screen.dart';
 import 'package:flutter_app/screens/contact_screen.dart';
 import 'package:flutter_app/screens/home_screen.dart';
+import 'package:flutter_app/screens/login_screen.dart';
 import 'package:flutter_app/screens/news_screen.dart';
 import 'package:flutter_app/screens/notfound_screen.dart';
+import 'package:flutter_app/screens/register_screen.dart';
 import 'package:flutter_app/screens/tab_screen.dart';
 import 'package:flutter_app/screens/web_screen.dart';
 import 'package:flutter_app/utils/colors/color_schemes.g.dart';
@@ -86,6 +88,14 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: '/web',
             page: () => const WebScreen(),
+            transition: Transition.topLevel),
+        GetPage(
+            name: '/register',
+            page: () => const RegisterScreen(),
+            transition: Transition.topLevel),
+        GetPage(
+            name: '/login',
+            page: () => const LoginScreen(),
             transition: Transition.topLevel),
       ],
     );
