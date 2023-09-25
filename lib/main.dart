@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/about_screen.dart';
 import 'package:flutter_app/screens/contact_screen.dart';
 import 'package:flutter_app/screens/home_screen.dart';
+import 'package:flutter_app/screens/news_screen.dart';
 import 'package:flutter_app/screens/notfound_screen.dart';
 import 'package:flutter_app/screens/tab_screen.dart';
 import 'package:flutter_app/utils/colors/color_schemes.g.dart';
@@ -77,6 +78,10 @@ class MyApp extends StatelessWidget {
             name: '/map',
             page: () => const MapScreen(),
             transition: Transition.circularReveal),
+        GetPage(
+            name: '/news',
+            page: () => const NewsScreen(),
+            transition: Transition.topLevel),
       ],
     );
   }

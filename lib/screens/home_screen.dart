@@ -98,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           OutlinedButton(
-            onPressed: () {},
+            onPressed: () {Get.toNamed('/news');},
             style: ButtonStyle(
                 backgroundColor:
                     MaterialStateProperty.all<Color>(Colors.yellow.shade400)),
@@ -106,10 +106,10 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.person,
+                  Icons.newspaper,
                   size: 40,
                 ),
-                Text('Me')
+                Text('News')
               ],
             ),
           ),
