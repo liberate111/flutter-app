@@ -16,17 +16,27 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
   final authService = AuthService();
+  bool isLoading = false;
 
   Future<void> _login(Map<dynamic, dynamic> formValue) async {
+    setState(() {
+      isLoading = true;
+    });
     var response = await authService.login(
         email: formValue['email'], password: formValue['password']);
     var resp = jsonDecode(response.body);
     if (response.statusCode == 200) {
+      setState(() {
+        isLoading = false;
+      });
       Get.snackbar('Login', 'success', backgroundColor: Colors.green.shade200);
-      Future.delayed(const Duration(seconds: 2), () {
+      Future.delayed(const Duration(seconds: 1), () {
         Get.offNamedUntil('/home', (route) => false);
       });
     } else {
+      setState(() {
+        isLoading = false;
+      });
       Get.snackbar('Login', '${resp['message']}',
           backgroundColor: Colors.red.shade200,
           snackPosition: SnackPosition.TOP);
@@ -36,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: isLoading == true ? const Center(child: CircularProgressIndicator(),): Container(
         decoration: const BoxDecoration(
             gradient: LinearGradient(colors: [
           Colors.lightGreen,
@@ -46,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Center(
             child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Column(
               children: [
                 Image.asset('assets/images/3.PNG'),
@@ -73,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 maxLines: 1,
                                 keyboardType: TextInputType.emailAddress,
                                 decoration: InputDecoration(
-                                    icon: Icon(Icons.email_outlined),
+                                    icon: const Icon(Icons.email_outlined),
                                     labelText: 'Email',
                                     filled: true,
                                     fillColor: const Color.fromARGB(
