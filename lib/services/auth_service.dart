@@ -34,4 +34,9 @@ class AuthService {
     }
     return response;
   }
+
+  Future<void> logout() async {
+    final SharedPreferences pref = await _pref;
+    pref.remove('token');
+  }
 }

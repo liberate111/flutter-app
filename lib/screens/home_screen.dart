@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/services/auth_service.dart';
 import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -10,6 +11,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   Map<String, String> res = {};
+  final authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,11 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
         actions: [
           IconButton.outlined(
-              onPressed: () {}, icon: const Icon(Icons.logout))
+              onPressed: () async {
+                await authService.logout;
+                Get.offNamedUntil('/login', (route) => false);
+              },
+              icon: const Icon(Icons.logout))
         ],
       ),
       body: GridView.count(
@@ -73,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Icons.telegram_sharp,
                   size: 40,
                 ),
-                  Text('Contact\n $res')
+                Text('Contact\n $res')
               ],
             ),
           ),
@@ -98,7 +104,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           OutlinedButton(
-            onPressed: () {Get.toNamed('/news');},
+            onPressed: () {
+              Get.toNamed('/news');
+            },
             style: ButtonStyle(
                 backgroundColor:
                     MaterialStateProperty.all<Color>(Colors.yellow.shade400)),
