@@ -10,6 +10,7 @@ import 'package:flutter_app/screens/tab_screen.dart';
 import 'package:flutter_app/screens/web_screen.dart';
 import 'package:flutter_app/utils/colors/color_schemes.g.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'screens/camera_screen.dart';
 import 'screens/detail_screen.dart';
@@ -18,7 +19,10 @@ import 'screens/product_screen.dart';
 
 String? token;
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  token = prefs.getString('token');
   runApp(const MyApp());
 }
 

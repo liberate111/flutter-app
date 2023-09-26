@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
         actions: [
           IconButton.outlined(
-              onPressed: () {}, icon: const Icon(Icons.developer_mode_sharp))
+              onPressed: () {}, icon: const Icon(Icons.logout))
         ],
       ),
       body: GridView.count(

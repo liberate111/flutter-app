@@ -33,7 +33,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       var resp = jsonDecode(response.body);
       Get.snackbar('Register', '${resp['message']}\n${resp['errors']['email'][0]}',
           backgroundColor: Colors.red.shade200,
-          snackPosition: SnackPosition.BOTTOM);
+          snackPosition: SnackPosition.TOP);
     }
   }
 

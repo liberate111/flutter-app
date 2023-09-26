@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_app/services/auth_service.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
@@ -12,6 +15,23 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
+  final authService = AuthService();
+
+  Future<void> _login(Map<dynamic, dynamic> formValue) async {
+    var response = await authService.login(
+        email: formValue['email'], password: formValue['password']);
+    var resp = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      Get.snackbar('Login', 'success', backgroundColor: Colors.green.shade200);
+      Future.delayed(const Duration(seconds: 2), () {
+        Get.offNamedUntil('/home', (route) => false);
+      });
+    } else {
+      Get.snackbar('Login', '${resp['message']}',
+          backgroundColor: Colors.red.shade200,
+          snackPosition: SnackPosition.TOP);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,8 +95,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 name: 'password',
                                 maxLines: 1,
                                 keyboardType: TextInputType.visiblePassword,
+                                obscureText: true,
                                 decoration: InputDecoration(
-                                    icon: Icon(Icons.password),
+                                    icon: const Icon(Icons.password),
                                     labelText: 'Password',
                                     filled: true,
                                     fillColor: const Color.fromARGB(
@@ -108,12 +129,15 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: const Text(
                                 'Login',
                                 style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold,color: Colors.amberAccent),
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.amberAccent),
                               ),
-                              onPressed: () {
+                              onPressed: () async {
                                 _formKey.currentState?.saveAndValidate();
-                                debugPrint(
-                                    _formKey.currentState?.value.toString());
+                                if (_formKey.currentState!.validate()) {
+                                  await _login(_formKey.currentState!.value);
+                                }
                               },
                             )),
                             Expanded(
