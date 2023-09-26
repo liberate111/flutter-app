@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -38,5 +40,17 @@ class AuthService {
   Future<void> logout() async {
     final SharedPreferences pref = await _pref;
     pref.remove('token');
+  }
+
+  Future<void> getProfile() async {
+    final SharedPreferences pref = await _pref;
+    var token = json.decode(pref.getString('token')!);
+    var accessToken = token['access_token'];
+    var url = Uri.parse('https://api.codingthailand.com/api/profile');
+    var response =
+        await http.get(url, headers: {'Authorization': 'Bearer $accessToken'});
+    var resp = json.decode(response.body);
+    var profile = resp['data']['user'];
+    await pref.setString('profile', json.encode(profile));
   }
 }

@@ -26,6 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
         email: formValue['email'], password: formValue['password']);
     var resp = jsonDecode(response.body);
     if (response.statusCode == 200) {
+      await authService.getProfile();
       setState(() {
         isLoading = false;
       });
