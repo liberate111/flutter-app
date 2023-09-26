@@ -16,6 +16,8 @@ import 'screens/detail_screen.dart';
 import 'screens/map_screen.dart';
 import 'screens/product_screen.dart';
 
+String? token;
+
 void main() {
   runApp(const MyApp());
 }
@@ -54,7 +56,7 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(
             name: '/home',
-            page: () => const TabScreen(),
+            page: () => token == null ? const LoginScreen() : const TabScreen(),
             transition: Transition.noTransition),
         GetPage(
             name: '/about',
