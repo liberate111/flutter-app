@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:get/get.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -103,17 +104,28 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: MaterialButton(
                               autofocus: true,
                               height: 40,
-                              color: Colors.amber.shade200,
+                              color: const Color.fromARGB(255, 231, 96, 18),
                               child: const Text(
                                 'Login',
                                 style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
+                                    fontSize: 20, fontWeight: FontWeight.bold,color: Colors.amberAccent),
                               ),
                               onPressed: () {
                                 _formKey.currentState?.saveAndValidate();
-                                debugPrint(_formKey.currentState?.value.toString());
+                                debugPrint(
+                                    _formKey.currentState?.value.toString());
                               },
-                            ))
+                            )),
+                            Expanded(
+                                child: TextButton(
+                                    onPressed: () {
+                                      Get.toNamed('/register');
+                                    },
+                                    child: const Text(
+                                      'Register',
+                                      style: TextStyle(
+                                          decoration: TextDecoration.underline),
+                                    )))
                           ],
                         )
                       ],
