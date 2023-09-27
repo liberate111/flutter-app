@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/getx/account_controller.dart';
 import 'package:flutter_app/providers/account_provider.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +12,9 @@ class MenuDrawer extends StatefulWidget {
 }
 
 class _MenuDrawerState extends State<MenuDrawer> {
+  final controller = Get.put(AccountController());
+
+
   @override
   void initState() {
     super.initState();
@@ -39,6 +43,7 @@ class _MenuDrawerState extends State<MenuDrawer> {
                         .updateWelcomeName('welcome Sis!');
                     Provider.of<AccountProvider>(context, listen: false)
                         .updateProfile('newName');
+                    controller.setWelcome('change');
                     Scaffold.of(context).closeDrawer();
                   });
             },

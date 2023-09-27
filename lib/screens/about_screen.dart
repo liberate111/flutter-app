@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/getx/account_controller.dart';
 import 'package:flutter_app/models/api_version/api_version.dart';
 import 'package:flutter_app/providers/account_provider.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
@@ -60,6 +62,12 @@ class _AboutScreenState extends State<AboutScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      GetX<AccountController>(
+                        init: AccountController(),
+                        builder: (controller) {
+                          return Text('data from getX: ${controller.welcome.value}');
+                        }
+                      ),
                       Text(
                           'watch: ${context.watch<AccountProvider>().welcome}'),
                       Consumer<AccountProvider>(
