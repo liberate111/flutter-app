@@ -65,7 +65,8 @@ class _DetailScreenState extends State<DetailScreen> {
                           Theme.of(context).colorScheme.tertiaryContainer,
                     ),
                     onTap: () async {
-                      var url = 'https://youtube.com/watch?v=${snapshot.data?['data']?[index]['ch_url']}';
+                      var url =
+                          'https://youtube.com/watch?v=${snapshot.data?['data']?[index]['ch_url']}';
                       await _launchUrl(url);
                     },
                   );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/providers/account_provider.dart';
 import 'package:flutter_app/screens/about_screen.dart';
 import 'package:flutter_app/screens/contact_screen.dart';
 import 'package:flutter_app/screens/home_screen.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_app/screens/tab_screen.dart';
 import 'package:flutter_app/screens/web_screen.dart';
 import 'package:flutter_app/utils/colors/color_schemes.g.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'screens/camera_screen.dart';
@@ -23,7 +25,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   token = prefs.getString('token');
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [ChangeNotifierProvider(create: (context) => AccountProvider())],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

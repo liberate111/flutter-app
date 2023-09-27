@@ -11,7 +11,8 @@ class WebScreen extends StatefulWidget {
 
 class _WebScreenState extends State<WebScreen> {
   Map<String, dynamic> item = {};
-  var controller = WebViewController()..setJavaScriptMode(JavaScriptMode.unrestricted);
+  var controller = WebViewController()
+    ..setJavaScriptMode(JavaScriptMode.unrestricted);
 
   @override
   void initState() {

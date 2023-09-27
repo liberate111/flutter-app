@@ -46,31 +46,32 @@ class _ProductScreenState extends State<ProductScreen> {
               return ListView.separated(
                 itemBuilder: (context, index) {
                   return ListTile(
-                      leading: ConstrainedBox(
-                        constraints: const BoxConstraints(
-                            maxHeight: 80,
-                            minHeight: 80,
-                            maxWidth: 80,
-                            minWidth: 80),
-                        child: Image.network(
-                          '${snapshot.data?['data']?[index]['picture']}',
-                          fit: BoxFit.fill,
-                        ),
+                    leading: ConstrainedBox(
+                      constraints: const BoxConstraints(
+                          maxHeight: 80,
+                          minHeight: 80,
+                          maxWidth: 80,
+                          minWidth: 80),
+                      child: Image.network(
+                        '${snapshot.data?['data']?[index]['picture']}',
+                        fit: BoxFit.fill,
                       ),
-                      title: Text('${snapshot.data?['data']?[index]['title']}'),
-                      subtitle:
-                          Text('${snapshot.data?['data']?[index]['detail']}'),
-                      trailing: Chip(
-                        label:
-                            Text('${snapshot.data?['data']?[index]['view']}'),
-                        padding: const EdgeInsets.all(2),
-                        backgroundColor:
-                            Theme.of(context).colorScheme.tertiaryContainer,
-                      ),
-                      onTap: () {
-                        Get.toNamed(Uri.parse('detail?id=${snapshot.data?['data']?[index]['id']}&title=${snapshot.data?['data']?[index]['title']}').toString());
-                      },
-                    );
+                    ),
+                    title: Text('${snapshot.data?['data']?[index]['title']}'),
+                    subtitle:
+                        Text('${snapshot.data?['data']?[index]['detail']}'),
+                    trailing: Chip(
+                      label: Text('${snapshot.data?['data']?[index]['view']}'),
+                      padding: const EdgeInsets.all(2),
+                      backgroundColor:
+                          Theme.of(context).colorScheme.tertiaryContainer,
+                    ),
+                    onTap: () {
+                      Get.toNamed(Uri.parse(
+                              'detail?id=${snapshot.data?['data']?[index]['id']}&title=${snapshot.data?['data']?[index]['title']}')
+                          .toString());
+                    },
+                  );
                 },
                 separatorBuilder: (context, index) => const Divider(),
                 itemCount: snapshot.data!['data']!.length,

@@ -19,9 +19,7 @@ class _ProductScreenState extends State<ProductScreen> {
         await http.get(Uri.parse('https://api.codingthailand.com/api/course'));
     if (response.statusCode == 200) {
       var products = Product.fromJson(json.decode(response.body));
-      Future.delayed(Duration(seconds: 15), () {
-        
-      });
+      Future.delayed(Duration(seconds: 15), () {});
       return products;
     } else {
       throw Exception('Request failed with status: ${response.statusCode}');

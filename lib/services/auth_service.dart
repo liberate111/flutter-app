@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_app/models/account/account.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -52,13 +53,28 @@ class AuthService {
     var response =
         await http.get(url, headers: {'Authorization': 'Bearer $accessToken'});
     var resp = json.decode(response.body);
-    var profile = resp['data']['user'];
+    // in class use this
+    // var profile = resp['data']['user'];
+    // in personal store all of body response
+    var profile = resp;
     await pref.setString('profile', json.encode(profile));
   }
 
-  Future<dynamic> getProfileFromLocal() async {
+  Future<Account> getProfileFromLocal() async {
     final SharedPreferences pref = await _pref;
-    var profile = json.decode(pref.getString('profile')!);
-    return profile; 
+    var profile = Account.fromJson(json.decode(pref.getString('profile')!));
+    return profile;
+  }
+
+  Future<http.Response> updateProfile(String name) async {
+    final SharedPreferences pref = await _pref;
+    var token = json.decode(pref.getString('token')!);
+    var accessToken = token['access_token'];
+    var url = Uri.parse('https://api.codingthailand.com/api/editprofile');
+    var response = await http.post(url,
+        headers: {'Authorization': 'Bearer $accessToken'},
+        body: {'name': name});
+    // var resp = json.decode(response.body);
+    return response;
   }
 }

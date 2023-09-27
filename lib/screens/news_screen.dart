@@ -110,7 +110,10 @@ class _NewsScreenState extends State<NewsScreen> {
         child: ListView.builder(
           itemBuilder: (context, index) => InkWell(
             onTap: () {
-              Get.toNamed('/web', arguments: {'url': articles[index]['url'], 'sourceName': articles[index]['source']['name']});
+              Get.toNamed('/web', arguments: {
+                'url': articles[index]['url'],
+                'sourceName': articles[index]['source']['name']
+              });
             },
             child: Card(
                 child: Column(
@@ -118,7 +121,8 @@ class _NewsScreenState extends State<NewsScreen> {
                 CachedNetworkImage(
                   imageUrl: '${articles[index]['urlToImage']}',
                   progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      CircularProgressIndicator(value: downloadProgress.progress),
+                      CircularProgressIndicator(
+                          value: downloadProgress.progress),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
                 Padding(

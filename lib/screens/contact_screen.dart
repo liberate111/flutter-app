@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/providers/account_provider.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ContactScreen extends StatefulWidget {
@@ -52,6 +54,11 @@ class _ContactScreenState extends State<ContactScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Consumer<AccountProvider>(
+                builder: (context, value, child) {
+                  return Text(value.welcome);
+                },
+              ),
               Text(
                 'Contact ${data['email']} ${data['code']}',
                 style: TextStyle(

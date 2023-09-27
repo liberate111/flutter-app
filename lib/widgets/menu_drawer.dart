@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/services/auth_service.dart';
+import 'package:flutter_app/providers/account_provider.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 class MenuDrawer extends StatefulWidget {
   const MenuDrawer({super.key});
@@ -10,19 +11,8 @@ class MenuDrawer extends StatefulWidget {
 }
 
 class _MenuDrawerState extends State<MenuDrawer> {
-  final authService = AuthService();
-  dynamic profile= {};
-
-  Future<void> getProfile() async {
-    var p = await authService.getProfileFromLocal();
-    setState(() {
-      profile = p;
-    });
-  }
-
   @override
   void initState() {
-    getProfile();
     super.initState();
   }
 
@@ -31,16 +21,28 @@ class _MenuDrawerState extends State<MenuDrawer> {
     return Drawer(
       child: ListView(
         children: [
-          UserAccountsDrawerHeader(
-              currentAccountPicture: const CircleAvatar(
-                backgroundImage: AssetImage('assets/images/3.PNG'),
-              ),
-              accountName: Text('${profile['name']}'),
-              accountEmail:  Text('${profile['email']} -- ${profile['role']}'),
-              onDetailsPressed: () {
-                Get.snackbar('app', 'snackbar');
-                Scaffold.of(context).closeDrawer();
-              }),
+          Consumer<AccountProvider>(
+            builder: (context, value, child) {
+              return UserAccountsDrawerHeader(
+                  currentAccountPicture: const CircleAvatar(
+                    backgroundImage: AssetImage('assets/images/3.PNG'),
+                  ),
+                  accountName: Text('${value.account?.data?.user?.name}'),
+                  accountEmail: Text(
+                      '${value.account?.data?.user?.email} -- ${value.account?.data?.user?.role}'),
+                  onDetailsPressed: () {
+                    Get.snackbar('app', 'update profile');
+                    // method 1
+                    // context.read<AccountProvider>().updateProfile('welcome Bro!');
+                    // method 2
+                    Provider.of<AccountProvider>(context, listen: false)
+                        .updateWelcomeName('welcome Sis!');
+                    Provider.of<AccountProvider>(context, listen: false)
+                        .updateProfile('newName');
+                    Scaffold.of(context).closeDrawer();
+                  });
+            },
+          ),
           ListTile(
             leading: const Icon(Icons.home_max),
             title: const Text('Home'),

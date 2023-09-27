@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/api_version/api_version.dart';
+import 'package:flutter_app/providers/account_provider.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
+
+import 'package:provider/provider.dart';
 
 class AboutScreen extends StatefulWidget {
   const AboutScreen({super.key});
@@ -57,6 +60,13 @@ class _AboutScreenState extends State<AboutScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      Text(
+                          'watch: ${context.watch<AccountProvider>().welcome}'),
+                      Consumer<AccountProvider>(
+                        builder: (context, value, child) {
+                          return Text(value.welcome);
+                        },
+                      ),
                       const Text(
                         'SNR0',
                         style: TextStyle(

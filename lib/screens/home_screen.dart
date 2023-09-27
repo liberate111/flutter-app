@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/providers/account_provider.dart';
 import 'package:flutter_app/services/auth_service.dart';
+import 'package:flutter_app/widgets/menu_drawer.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,10 +17,16 @@ class _HomeScreenState extends State<HomeScreen> {
   final authService = AuthService();
 
   @override
+  void initState() {
+    super.initState();
+    Future.microtask(() => context.read<AccountProvider>().getAccount());
+  }
+
+  @override
   Widget build(BuildContext context) {
     var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
     return Scaffold(
-      // drawer: const MenuDrawer(),
+      drawer: const MenuDrawer(),
       appBar: AppBar(
         leading: IconButton.outlined(
             onPressed: () {
@@ -42,16 +51,17 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-           Expanded(
-            flex: isPortrait == true ? 1 : 5,
-              child: const Column(
-            children: [
-              Text(
-                'Welcone ',
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-              )
-            ],
-          )),
+          Expanded(
+              flex: isPortrait == true ? 1 : 5,
+              child: Column(
+                children: [
+                  Text(
+                    'Welcone ${context.watch<AccountProvider>().account?.data?.user?.name}',
+                    style: const TextStyle(
+                        fontSize: 30, fontWeight: FontWeight.bold),
+                  )
+                ],
+              )),
           const Divider(),
           Expanded(
             flex: 9,
