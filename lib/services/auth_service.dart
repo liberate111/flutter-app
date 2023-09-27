@@ -55,7 +55,7 @@ class AuthService {
     var resp = json.decode(response.body);
     // in class use this
     // var profile = resp['data']['user'];
-    // in personal store all of body response
+    // in personal store all of response body
     var profile = resp;
     await pref.setString('profile', json.encode(profile));
   }
@@ -74,7 +74,13 @@ class AuthService {
     var response = await http.post(url,
         headers: {'Authorization': 'Bearer $accessToken'},
         body: {'name': name});
-    // var resp = json.decode(response.body);
+
+    // save to prefs
+    // in class use this
+    // var profile = resp['data']['user'];
+    // in personal store all of response body
+    var resp = json.decode(response.body);
+    await pref.setString('profile', json.encode(resp));
     return response;
   }
 }

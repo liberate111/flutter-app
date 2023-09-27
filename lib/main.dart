@@ -1,5 +1,8 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app/providers/account_provider.dart';
+import 'package:flutter_app/providers/product_provider.dart';
 import 'package:flutter_app/screens/about_screen.dart';
 import 'package:flutter_app/screens/contact_screen.dart';
 import 'package:flutter_app/screens/home_screen.dart';
@@ -26,7 +29,10 @@ void main() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   token = prefs.getString('token');
   runApp(MultiProvider(
-    providers: [ChangeNotifierProvider(create: (context) => AccountProvider())],
+    providers: [
+      ChangeNotifierProvider(create: (context) => AccountProvider()),
+      ChangeNotifierProvider(create: (context) => ProductProvider())
+    ],
     child: const MyApp(),
   ));
 }
