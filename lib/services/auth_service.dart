@@ -33,6 +33,7 @@ class AuthService {
     if (response.statusCode == 200) {
       final SharedPreferences pref = await _pref;
       pref.setString('token', response.body);
+      return response;
     }
     return response;
   }
@@ -40,6 +41,7 @@ class AuthService {
   Future<void> logout() async {
     final SharedPreferences pref = await _pref;
     pref.remove('token');
+    pref.remove('profile');
   }
 
   Future<void> getProfile() async {
@@ -52,5 +54,11 @@ class AuthService {
     var resp = json.decode(response.body);
     var profile = resp['data']['user'];
     await pref.setString('profile', json.encode(profile));
+  }
+
+  Future<dynamic> getProfileFromLocal() async {
+    final SharedPreferences pref = await _pref;
+    var profile = json.decode(pref.getString('profile')!);
+    return profile; 
   }
 }

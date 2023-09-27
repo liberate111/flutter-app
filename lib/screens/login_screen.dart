@@ -32,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
       });
       Get.snackbar('Login', 'success', backgroundColor: Colors.green.shade200);
       Future.delayed(const Duration(seconds: 1), () {
-        Get.offNamedUntil('/home', (route) => false);
+        Get.offNamedUntil('/tab', (route) => false);
       });
     } else {
       setState(() {

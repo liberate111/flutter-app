@@ -63,6 +63,10 @@ class MyApp extends StatelessWidget {
             page: () => token == null ? const LoginScreen() : const TabScreen(),
             transition: Transition.noTransition),
         GetPage(
+            name: '/tab',
+            page: () => const TabScreen(),
+            transition: Transition.circularReveal),
+        GetPage(
             name: '/about',
             page: () => const AboutScreen(),
             transition: Transition.native),

@@ -15,6 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
     return Scaffold(
       // drawer: const MenuDrawer(),
       appBar: AppBar(
@@ -38,118 +39,137 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: const Icon(Icons.logout))
         ],
       ),
-      body: GridView.count(
-        primary: false,
-        padding: const EdgeInsets.all(5),
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-        crossAxisCount: 3,
-        children: <Widget>[
-          FilledButton(
-            onPressed: () {},
-            style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.yellow.shade400)),
-            child: const Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.person,
-                  size: 40,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+           Expanded(
+            flex: isPortrait == true ? 1 : 5,
+              child: const Column(
+            children: [
+              Text(
+                'Welcone ',
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              )
+            ],
+          )),
+          const Divider(),
+          Expanded(
+            flex: 9,
+            child: GridView.count(
+              primary: false,
+              padding: const EdgeInsets.all(5),
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              crossAxisCount: isPortrait == true ? 3 : 5,
+              children: <Widget>[
+                FilledButton(
+                  onPressed: () {},
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          Colors.yellow.shade400)),
+                  child: const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.person,
+                        size: 40,
+                      ),
+                      Text('Me')
+                    ],
+                  ),
                 ),
-                Text('Me')
-              ],
-            ),
-          ),
-          FilledButton.tonal(
-            onPressed: () async {
-              var data = await Get.toNamed('/contact',
-                  arguments: {'email': 'test@test.com', 'code': 200});
-              setState(() {
-                res = data;
-              });
-            },
-            style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.yellow.shade400)),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(
-                  Icons.telegram_sharp,
-                  size: 40,
+                FilledButton.tonal(
+                  onPressed: () async {
+                    var data = await Get.toNamed('/contact',
+                        arguments: {'email': 'test@test.com', 'code': 200});
+                    setState(() {
+                      res = data;
+                    });
+                  },
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          Colors.yellow.shade400)),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.telegram_sharp,
+                        size: 40,
+                      ),
+                      Text('Contact\n $res')
+                    ],
+                  ),
                 ),
-                Text('Contact\n $res')
-              ],
-            ),
-          ),
-          OutlinedButton(
-            onPressed: () {
-              Get.toNamed('/about');
-            },
-            style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.redAccent),
-                foregroundColor:
-                    MaterialStateProperty.all<Color>(Colors.orange)),
-            child: const Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.face,
-                  size: 40,
+                OutlinedButton(
+                  onPressed: () {
+                    Get.toNamed('/about');
+                  },
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.redAccent),
+                      foregroundColor:
+                          MaterialStateProperty.all<Color>(Colors.orange)),
+                  child: const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.face,
+                        size: 40,
+                      ),
+                      Text('About')
+                    ],
+                  ),
                 ),
-                Text('About')
-              ],
-            ),
-          ),
-          OutlinedButton(
-            onPressed: () {
-              Get.toNamed('/news');
-            },
-            style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.yellow.shade400)),
-            child: const Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.newspaper,
-                  size: 40,
+                OutlinedButton(
+                  onPressed: () {
+                    Get.toNamed('/news');
+                  },
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          Colors.yellow.shade400)),
+                  child: const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.newspaper,
+                        size: 40,
+                      ),
+                      Text('News')
+                    ],
+                  ),
                 ),
-                Text('News')
-              ],
-            ),
-          ),
-          OutlinedButton(
-            onPressed: () {},
-            style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.yellow.shade400)),
-            child: const Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.person,
-                  size: 40,
+                OutlinedButton(
+                  onPressed: () {},
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          Colors.yellow.shade400)),
+                  child: const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.person,
+                        size: 40,
+                      ),
+                      Text('Me')
+                    ],
+                  ),
                 ),
-                Text('Me')
-              ],
-            ),
-          ),
-          OutlinedButton(
-            onPressed: () {},
-            style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.yellow.shade400)),
-            child: const Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.person,
-                  size: 40,
+                OutlinedButton(
+                  onPressed: () {},
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          Colors.yellow.shade400)),
+                  child: const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.person,
+                        size: 40,
+                      ),
+                      Text('Me')
+                    ],
+                  ),
                 ),
-                Text('Me')
               ],
             ),
           ),
