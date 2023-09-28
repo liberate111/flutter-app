@@ -53,7 +53,7 @@ class _MenuDrawerState extends State<MenuDrawer> {
             title: const Text('Home'),
             trailing: const Icon(Icons.arrow_right_rounded),
             onTap: () {
-              Get.offNamedUntil('/home', (route) => false);
+              Get.offNamedUntil('/tab', (route) => false);
             },
             // selected: true,
           ),

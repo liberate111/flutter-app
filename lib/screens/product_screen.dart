@@ -16,7 +16,7 @@ class _ProductScreenState extends State<ProductScreen> {
 
   @override
   void initState() {
-    var productProvider = Provider.of<ProductProvider>(context, listen: false);
+    // var productProvider = Provider.of<ProductProvider>(context, listen: false);
     Future.microtask(
         () => productFuture = context.read<ProductProvider>().getProduct());
     super.initState();
