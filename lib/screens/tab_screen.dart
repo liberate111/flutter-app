@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/camera_screen.dart';
 import 'package:flutter_app/screens/home_screen.dart';
@@ -14,6 +15,30 @@ class TabScreen extends StatefulWidget {
 class _TabScreenState extends State<TabScreen>
     with SingleTickerProviderStateMixin {
   late TabController controller = TabController(length: 3, vsync: this);
+
+  final firebaseMessaging = FirebaseMessaging.instance;
+
+  // void showFlutterNotification(RemoteMessage.event) {
+    // Get.defaultDialog(
+    //   title: Text('${event.notification!.body}'),
+    //   content: Text('${event.notification!.body}'),
+    //   actions: [
+    //     OutlinedButton(onPressed: onPressed, child: child)
+    //   ]
+    // )
+  // }
+
+  @override
+  void initState() {
+    firebaseMessaging.getToken().then((value) => {
+      debugPrint('FCM Token: $value')
+    });
+
+    FirebaseMessaging.onMessage.listen(showFlutterNotification);
+    super.initState();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

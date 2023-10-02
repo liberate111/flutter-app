@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/widgets/app_header.dart';
+import 'package:flutter_app/widgets/permission.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -63,6 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   fontSize: 60,
                   fontStyle: FontStyle.italic),
             ),
+            const Permissions(),
           ],
         ),
       ),
